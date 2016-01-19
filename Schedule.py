@@ -113,8 +113,13 @@ def main():
 	arg_parser = argparse.ArgumentParser(description='Process some integers.')
 	arg_parser.add_argument('filename', type=str, help='FILENAME', 
 		default='NTU StudentLINK - Student Automated Registration System.html')
+	
+	arg_parser.add_argument('-a', '--all', action='store_true', help='Show all courses including ones on waitlist')
 
 	args = arg_parser.parse_args()
+
+	global show_all_courses
+	show_all_courses = bool(args.all)
 
 	# read the file
 	scheduleFile = open(args.filename, 'r')
@@ -182,30 +187,33 @@ def convert_to_ics(time_slots, file_name):
 	cal.add('version', '1.0')
 
 	for time_slot in time_slots:
-		# get the time and date info for time slot
-		class_event_info = convert_to_datetime(time_slot)
 
-		# create the event
-		event = Event()
-		event_summary = '{} - {} - {}'.format(time_slot.course, time_slot.class_type, time_slot.course_title)
-		print event_summary
-		event.add('summary', event_summary)
-		event.add('dtstart', class_event_info.datetimes[0])
-		event.add('dtend', class_event_info.datetimes[1])
-		event.add('dtstamp', datetime.datetime.now())
-		event.add('location', time_slot.venue)
-		if class_event_info.recurrences > 0:
-			event.add('rrule', {'freq' : 'weekly', 'count' : class_event_info.recurrences})
+		if time_slot.status == 'REGISTERED' or show_all_courses:
+			# get the time and date info for time slot
+			class_event_info = convert_to_datetime(time_slot)
 
-			if class_event_info.is_bi_weekly:
-				event['rrule']['interval'] = 2
+			# create the event
+			event = Event()
+			event_summary = '{} - {} - {}'.format(time_slot.course, time_slot.class_type, time_slot.course_title)
+			print event_summary
+			event.add('summary', event_summary)
+			event.add('dtstart', class_event_info.datetimes[0])
+			event.add('dtend', class_event_info.datetimes[1])
+			event.add('dtstamp', datetime.datetime.now())
+			event.add('location', time_slot.venue)
+			if class_event_info.recurrences > 0:
+				event.add('rrule', {'freq' : 'weekly', 'count' : class_event_info.recurrences})
 
-		cal.add_component(event)
+				if class_event_info.is_bi_weekly:
+					event['rrule']['interval'] = 2
+
+			cal.add_component(event)
 
 	#  write to ics file
 	f = open('{}.ics'.format(file_name), 'wb')
 	f.write(cal.to_ical())
 	f.close()
+
 
 
 if __name__ == "__main__":

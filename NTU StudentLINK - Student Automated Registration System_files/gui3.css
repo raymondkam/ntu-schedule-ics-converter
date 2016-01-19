@@ -1,0 +1,401 @@
+/* FileName: GUI3.CSS   */
+/* Author  : WAT Team  */
+/*           CiTs, NTU */
+/*                     */
+
+/* Updated : 11 May 2015 - wide and narrow display width */
+/* Updated : 10 Jun 2010 */
+/* Updated : 1 Jun 2010 - major enhancements to standardise GUI for PLSQL and dotnet applications */
+
+/* Updated : 28/7/2001 */
+/* Updated : 04/10/2002 - LS - changed background image*/
+
+
+/* base element inheritance formatting */
+
+
+html,body{height:100%}   /* minimum height */
+body {
+	/*background-image: url(background_page.jpg); */
+	/*background-position: center top; */
+	font-size: 1em;  		/* default font size - based on browser setting */
+	border-top: 0px; 
+	border-bottom: 0px; 
+	border-left: 0px; 
+	border-right: 0px; 
+	padding-top: 0px; 
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;	
+	font-family: Helvetica, Arial, sans-serif; 
+	font-weight: normal; 
+	color: #333; 
+	text-align: center;
+	margin: 0px; 
+	background-color : #FFFFFF;
+}
+#ui_print_img {
+	display: none;
+}
+#ui_container_w {
+	/*position:fixed;*/
+	height: 100%; 
+	width: 100%;
+	color: #333; 
+	text-align: left;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	min-height: 100%; 
+	}
+#ui_container_100 {
+	height:100%;		/* minimum height for IE browsers */
+	min-height:100%;	/* minimum height for non IE browsers */
+	width: 1018px; 
+	color: #333; 
+	text-align:left;	
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	background-color: #fff;
+}
+#ui_container {
+	height:100%;		/* minimum height for IE browsers */
+	min-height:100%;	/* minimum height for non IE browsers */
+	width: 1018px; 
+	color: #333; 
+	text-align:left;	
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	background-color: #fff;
+}
+
+html>body #ui_container{height:auto} /* not ie6- */
+
+#ui_header_container_w { /* header container for wide */
+	border-top: 0px; 
+	border-bottom: 0px; 
+	border-left: 0px; 
+	border-right: 0px; 
+	height: 80px; 
+	width: 100%;
+	background-image: url(header.jpg); 
+	background-REPEAT: NO-REPEAT;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	position : relative;
+	text-align: left;
+	}
+	
+#ui_staff_header_container {	/* header container for staff (for backward compatibility) */
+	border-top: 0px; 
+	border-bottom: 0px; 
+	border-left: 0px; 
+	border-right: 0px; 
+	height: 80px; 
+	width: 1018px; 
+	background-image: url(header.jpg); 
+	background-REPEAT: NO-REPEAT;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	position : relative;
+}
+#ui_student_header_container {	/* header container for student (for backward compatibility) */
+	border-top: 0px; 
+	border-bottom: 0px; 
+	border-left: 0px; 
+	border-right: 0px; 
+	height: 80px; 
+	width: 1018px;
+	background-image: url(header.jpg); 
+	background-REPEAT: NO-REPEAT;
+	/*margin: 0px auto;*/
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	position : relative;
+}
+
+#ui_header_title_w {
+	font-family: Helvetica, Arial, sans-serif;
+	color: #003478; 
+	padding-bottom: 12px; 
+	text-align: right; 
+	padding-top: 12px; padding-left: 12px; 
+	padding-right: 12px;
+}	
+	
+#ui_header_title_container { /* outer container for title */
+	font-family: Helvetica, Arial, sans-serif;
+	color: #003478; 
+	padding-bottom: 12px; 
+	text-align: right; 
+	padding-top: 12px; padding-left: 12px; 
+	padding-right: 12px;
+}
+#ui_header_title1 { 			/* container for title1 */
+	font-size: 14pt; 
+	margin: 0px;
+}
+#ui_header_title2 {			/* container for title2 */
+	font-size: 10pt; 
+	font-weight: bold; 
+	margin: 0px;
+}
+#ui_nav_container {			/* outer container for top navigation bar */
+	width: 100%; 
+	/*HEIGHT : 30px;*/
+	font-size: 0.9em; 
+	height: 1.5em;
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold; 
+	color: #999; 
+	background-image: url(header_nav_blue.jpg);
+	background-repeat: repeat-x;
+	background-color: #fff;
+	}
+#ui_nav_innercontainer {
+	width: 1018px; 
+	margin: 0px auto;
+	margin-top: 0px;
+	/*padding-top:5px;*/
+}
+#ui_nav_innercontainer_w {
+	width: 100%; 
+	margin-top: 0px;
+	/*padding-top: 5px;*/
+}
+#ui_nav_left {
+	float: left; margin: 5px;
+}
+#ui_nav_right {
+	float: right; margin: 5px;
+}
+A.ui_navline_bottom_links:link {
+	text-decoration: none; 
+}
+A.ui_navline_bottom_links:visited {
+	text-decoration: none; 
+}
+A.ui_navline_bottom_links:hover {
+	text-decoration: underline; 
+	background: none transparent scroll repeat 0% 0%; 
+}
+.ui_navline_top_links {
+	font-size: 0.8em; 
+	font-weight: bold; 
+}
+.ui_navline_bottom_links {
+	font-size: 0.9em; 
+	text-decoration: none; 
+	font-weight: bold; color: #666;
+}
+.ui_nav_topright {
+	font-size: 0.8em; 
+	width: 100%; 
+	text-align: right;
+}
+#ui_body_container {
+	font-size: 0.9em; 
+	width: 98%; 
+	margin: 8px auto;
+	width: 1018px;
+	text-align: left;
+}
+#ui_body_container_w {
+	font-size: 0.9em; 
+	width: 99%; 
+	margin: 8px;
+	width: 100%; 
+	margin: 0px auto;
+	text-align: left;
+}
+#ui_footer_container_w {
+	width: 100%; 
+	border-top: #999 1px dotted; 
+	border-bottom: #999 1px dotted; 
+	margin: 0px; 
+	font-size: 0.8em; 
+	height: 2em; 
+	font-family: Helvetica, Arial, sans-serif; 
+	font-weight: bold; 
+	color: #999; 
+}
+#ui_footer_container {
+	width: 1018px; 
+	border-top: #999 1px dotted; 
+	border-bottom: #999 1px dotted; 
+	margin: 0px auto;
+	font-size: 0.8em; 
+	height: 2em; 
+	font-family: Helvetica, Arial, sans-serif; 
+	font-weight: bold; 
+	color: #999; 
+}
+
+#ui_footer_left {
+	width: auto; 
+	float: left; 
+	text-align: left; 
+	margin: 3px;
+}
+#ui_footer_right {
+	width: auto; 
+	float: right; 
+	text-align: right; 
+	margin: 3px;
+}
+#ui_copyright_container {
+	height: 1.4em; width: auto; margin: 0px;
+}
+#ui_copyright {
+	font-size: 0px; color: #666; font-STYLE: italic; text-align: left; margin: 0px;
+}
+TH {
+	font-family: Helvetica, Arial, sans-serif;
+}
+TD {
+	font-size: 0.8em; 
+	font-family: Helvetica, Arial, sans-serif; 
+}
+P {
+	font-size: 0.8em; 
+	font-family: Helvetica, Arial, sans-serif; 
+	margin: 0.3em;
+}
+UL {
+	list-style-image: url(bullet_grey_6.gif);
+}
+UL UL {
+	list-style-image: url(bullet_grey_4.gif);
+}
+
+DIV. UL {
+	list-style-image: url(bullet_blue_6.gif);
+}
+DIV. UL UL {
+	list-style-image: url(bullet_blue_4.gif);
+} 
+DIV.staff UL {
+	list-style-image: url(bullet_blue_6.gif);
+}
+DIV.staff UL UL {
+	list-style-image: url(bullet_blue_4.gif);
+}
+DIV.student UL {
+	list-style-image: url(bullet_red_6.gif);
+}
+DIV.student UL UL {
+	list-style-image: url(bullet_red_4.gif);
+}
+.navline {
+	font-weight: bold;
+}
+A {
+	font-family: Helvetica, Arial, sans-serif; 
+}
+A:hover {
+	background: #ffe7e7;
+}
+A:link {
+	color: blue;
+}
+A:visited {
+	color: blue;
+}
+A.navline:link {
+	text-decoration: none; 
+	color: #999;
+}
+A.navline:visited {
+	text-decoration: none; 
+	color: #999;
+}
+A.ui_footer_container:hover {
+	text-decoration: underline; 
+	background: none transparent scroll repeat 0% 0%; 
+	/*color: rgb(0,52,120);*/
+	color: #999;
+}
+A.ui_footer_container:link {
+	text-decoration: none; 
+	color: #999;
+}
+A.ui_footer_container:visited {
+	text-decoration: none; 
+	color: #999;
+}
+A.ui_footer_container:hover {
+	text-decoration: underline; 
+	background: none transparent scroll repeat 0% 0%; 
+	color: #999;}
+
+
+/* removed 15 May 2015
+H1 {
+	color: rgb(125,0,200);
+}
+H2 {
+	color: rgb(0,0,255);
+}
+H3 {
+	color: rgb(200,100,200);
+}
+H4 {
+	color: rgb(255,0,0);
+}
+H5 {
+	color: rgb(0,0,0);
+}
+H6 {
+	color: rgb(0,0,0);
+}
+*/
+
+H1 H2 H3 H4 H5 H6 {
+	font-family: Helvetica, Arial, sans-serif; 
+	font-weight: normal; 
+	font-STYLE: normal;
+}
+.nav {
+	font-size: 8pt; 
+	text-decoration: none; 
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold; color: blue;
+}
+.navfont {
+	font-size: 8pt; 
+	text-decoration: none; 
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold; 
+	color: rgb(255,255,255);
+}
+.title1 {
+	font-size: 16pt; 
+	font-family: Helvetica, Arial, sans-serif;
+	color: rgb(0,52,120);
+}
+.title2 {
+	font-size: 12pt; 
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold; color: rgb(0,52,120);
+}
+.footer {
+	font-size: 7px; 
+	font-weight: normal; 
+	color: rgb(0,52,120);
+}
+
+
+.regno {
+	font: 7px Helvetica, Arial, sans-serif;
+}

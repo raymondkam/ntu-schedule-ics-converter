@@ -1,6 +1,8 @@
 from HTMLParser import HTMLParser
 from TimeSlot import TimeSlot
 from copy import deepcopy
+from icalendar import Calendar, Event
+from datetime import datetime
 import argparse
 
 time_slots = []
@@ -97,6 +99,7 @@ class MyHTMLParser(HTMLParser):
 
 
 def main():
+
 	parser = MyHTMLParser()
 
 	arg_parser = argparse.ArgumentParser(description='Process some integers.')
@@ -111,6 +114,10 @@ def main():
 
 	for time_slot in time_slots:
 		print time_slot
+
+def convert_to_ics(time_slot):
+	# do the conversion here
+	print 'convert'
 
 if __name__ == "__main__":
 	main()

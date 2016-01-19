@@ -1,6 +1,7 @@
 from HTMLParser import HTMLParser
 from TimeSlot import TimeSlot
 from copy import deepcopy
+import argparse
 
 time_slots = []
 
@@ -94,11 +95,22 @@ class MyHTMLParser(HTMLParser):
 
 			self.column += 1
 
-parser = MyHTMLParser()
 
-# read the file
-scheduleFile = open('NTU StudentLINK - Student Automated Registration System.html', 'r')
-parser.feed(scheduleFile.read())
+def main():
+	parser = MyHTMLParser()
 
-for time_slot in time_slots:
-	print time_slot
+	arg_parser = argparse.ArgumentParser(description='Process some integers.')
+	arg_parser.add_argument('filename', type=str, help='FILENAME', 
+		default='NTU StudentLINK - Student Automated Registration System.html')
+
+	args = arg_parser.parse_args()
+
+	# read the file
+	scheduleFile = open(args.filename, 'r')
+	parser.feed(scheduleFile.read())
+
+	for time_slot in time_slots:
+		print time_slot
+
+if __name__ == "__main__":
+	main()

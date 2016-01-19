@@ -1,5 +1,6 @@
 from HTMLParser import HTMLParser
 from TimeSlot import TimeSlot
+from ClassEventInfo import ClassEventInfo
 from copy import deepcopy
 from icalendar import Calendar, Event
 from calendar import monthrange
@@ -7,8 +8,6 @@ from calendar import monthrange
 import datetime
 import time
 import argparse
-
-time_slots = []
 
 class MyHTMLParser(HTMLParser):
 
@@ -106,7 +105,8 @@ def main():
 	global semester_start_date
 	semester_start_date = datetime.date(2016, 1, 11)
 
-	convert_to_datetime('TH', '1730-1900', 'Teaching Wk2-13')
+	global time_slots
+	time_slots = []
 
 	parser = MyHTMLParser()
 
@@ -120,24 +120,27 @@ def main():
 	scheduleFile = open(args.filename, 'r')
 	parser.feed(scheduleFile.read())
 
-	for time_slot in time_slots:
-		convert_to_ics(time_slot)
+	convert_to_ics(time_slots, args.filename)
+		
 		# print time_slot
 
-def convert_to_datetime(weekday_letter, time_string, remark):
+# Function that converts a timeslot into a datetime
+# Returns a tuple containing the event datetimes, the number of recurrences, and whether the event is bi-weekly
+def convert_to_datetime(time_slot):
 	# get the weekday as a number
 	weekday_letter_to_number = {'M' : 0, 'T' : 1, 'W' : 2, 'TH' : 3, 'F' : 4}
-	weekday_number = weekday_letter_to_number[weekday_letter]
+	weekday_number = weekday_letter_to_number[time_slot.day]
 
 	# get the start and end times for the class
-	start_time = datetime.time(int(time_string[0:2]), int(time_string[2:4]), 0)
-	end_time = datetime.time(int(time_string[5:7]), int(time_string[7:9]), 0)
+	start_time = datetime.time(int(time_slot.time[0:2]), int(time_slot.time[2:4]), 0)
+	end_time = datetime.time(int(time_slot.time[5:7]), int(time_slot.time[7:9]), 0)
 
 	# get the weeks from remark
-	teaching_week = remark.replace('Teaching Wk', '')
+	teaching_week = time_slot.remark.replace('Teaching Wk', '')
 	event_datetime = None
 	recurrences = None
 	starting_week_number = None
+	bi_weekly = False
 
 	# weekly event
 	if '-' in teaching_week:
@@ -150,6 +153,7 @@ def convert_to_datetime(weekday_letter, time_string, remark):
 		teaching_weeks = teaching_week.split(',')
 		starting_week_number = int(teaching_weeks[0])
 		recurrences = len(teaching_weeks)
+		bi_weekly = True
 	# single event
 	else:
 		recurrences = 0
@@ -165,15 +169,44 @@ def convert_to_datetime(weekday_letter, time_string, remark):
 	event_start_datetime = datetime.datetime.combine(start_date, start_time)
 	event_end_datetime = datetime.datetime.combine(start_date, end_time)
 
-	print 'Start date: ', event_start_datetime.strftime("%a %B %d %Y, %H:%M")
-	print 'End date: ', event_end_datetime.strftime("%a %B %d %Y, %H:%M")
+	# print 'Start date: ', event_start_datetime.strftime("%a %B %d %Y, %H:%M")
+	# print 'End date: ', event_end_datetime.strftime("%a %B %d %Y, %H:%M")
 
-	return [event_start_datetime, event_end_datetime, recurrences]
+	return ClassEventInfo([event_start_datetime, event_end_datetime], recurrences, bi_weekly)
 
 
-def convert_to_ics(time_slot):
-	# do the conversion here
-	event_times = convert_to_datetime(time_slot.day, time_slot.time, time_slot.remark)
+def convert_to_ics(time_slots, file_name):
+
+	cal = Calendar()
+	cal.add('prodid', '-//NTU Schedule')
+	cal.add('version', '1.0')
+
+	for time_slot in time_slots:
+		# get the time and date info for time slot
+		class_event_info = convert_to_datetime(time_slot)
+
+		# create the event
+		event = Event()
+		event_summary = '{} - {} - {}'.format(time_slot.course, time_slot.class_type, time_slot.course_title)
+		print event_summary
+		event.add('summary', event_summary)
+		event.add('dtstart', class_event_info.datetimes[0])
+		event.add('dtend', class_event_info.datetimes[1])
+		event.add('dtstamp', datetime.datetime.now())
+		event.add('location', time_slot.venue)
+		if class_event_info.recurrences > 0:
+			event.add('rrule', {'freq' : 'weekly', 'count' : class_event_info.recurrences})
+
+			if class_event_info.is_bi_weekly:
+				event['rrule']['interval'] = 2
+
+		cal.add_component(event)
+
+	#  write to ics file
+	f = open('{}.ics'.format(file_name), 'wb')
+	f.write(cal.to_ical())
+	f.close()
+
 
 if __name__ == "__main__":
 	main()

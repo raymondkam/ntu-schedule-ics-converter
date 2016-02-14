@@ -1,6 +1,10 @@
 NTU Class Schedule HTML to ICS Converter
 ===========================================
 
+Prerequisites
+-----------
+- Python is installed and added to your environment variables
+
 Instructions
 -----------
 **Step 1:** Download the repo as a zip or clone the repo
